@@ -15,8 +15,7 @@ body {
 canvas {
   display: block;
   width: 100%;
-  max-width: 540px;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;       /* ⬅️ INI WAJIB agar square */
   height: auto;
   border: 2px solid #ccc;
   margin: 0 auto;
