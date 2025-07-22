@@ -2,6 +2,9 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
+// ⬇️ Tambahan untuk tampilan kecil (2x lebih kecil di UI)
+canvas.setDimensions({ width: 540, height: 540 });
+
 let frameObject; // buat nyimpen frame twibbon
 
 function addFrameOverlay() {
@@ -13,7 +16,7 @@ function addFrameOverlay() {
       selectable: false,
       evented: false
     });
-    img.scaleToWidth(1080);
+    img.scaleToWidth(1080); // tetap render dalam kualitas tinggi
     img.scaleToHeight(1080);
     frameObject = img;
     canvas.add(img);
