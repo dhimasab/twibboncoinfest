@@ -3,21 +3,25 @@ const canvas = new fabric.Canvas('canvas', {
 });
 
 let frameObject; // buat nyimpen frame twibbon
+let background;
 
 // Tambah layer background putih
-const background = new fabric.Rect({
-  left: 0,
-  top: 0,
-  fill: 'white',
-  width: 1080,
-  height: 1080,
-  selectable: false,
-  evented: false
-});
-canvas.add(background);
-canvas.sendToBack(background);
+function addWhiteBackground() {
+  if (background) canvas.remove(background);
+  background = new fabric.Rect({
+    left: 0,
+    top: 0,
+    fill: 'white',
+    width: canvas.getWidth(),
+    height: canvas.getHeight(),
+    selectable: false,
+    evented: false
+  });
+  canvas.add(background);
+  canvas.sendToBack(background);
+}
 
-// Tambah twibbon frame
+// Tambah twibbon frame (dipanggil ulang tiap resize)
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
   fabric.Image.fromURL(frameURL, function (img) {
@@ -25,17 +29,14 @@ function addFrameOverlay() {
       left: 0,
       top: 0,
       selectable: false,
-      evented: false,
-      scaleX: canvas.width / 1080,
-      scaleY: canvas.height / 1080
+      evented: false
     });
+    img.scaleToWidth(canvas.getWidth());
     frameObject = img;
     canvas.add(img);
     canvas.bringToFront(img);
   });
 }
-
-addFrameOverlay();
 
 // Upload gambar pengguna
 document.getElementById('upload').addEventListener('change', function (e) {
@@ -43,8 +44,8 @@ document.getElementById('upload').addEventListener('change', function (e) {
   reader.onload = function (f) {
     fabric.Image.fromURL(f.target.result, function (img) {
       img.set({
-        left: 540 * (canvas.width / 1080),
-        top: 540 * (canvas.height / 1080),
+        left: canvas.getWidth() / 2,
+        top: canvas.getHeight() / 2,
         originX: 'center',
         originY: 'center',
         hasRotatingPoint: false,
@@ -52,7 +53,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(800 * (canvas.width / 1080));
+      img.scaleToWidth(canvas.getWidth() * 0.75);
       canvas.add(img);
       canvas.setActiveObject(img);
       if (frameObject) canvas.bringToFront(frameObject);
@@ -78,16 +79,17 @@ document.getElementById('download').addEventListener('click', function () {
   }, 100);
 });
 
-// Resize canvas agar responsif
+// Resize canvas agar responsif + panggil ulang background & frame
 function resizeCanvas() {
   const containerWidth = document.getElementById('canvas').parentElement.clientWidth;
   const scale = containerWidth / 1080;
 
   canvas.setWidth(1080 * scale);
   canvas.setHeight(1080 * scale);
+  addWhiteBackground();
+  addFrameOverlay();
   canvas.renderAll();
 }
 
-// Trigger saat load dan saat window diresize
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
