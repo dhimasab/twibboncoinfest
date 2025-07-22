@@ -1,23 +1,54 @@
-
 body {
   font-family: sans-serif;
   text-align: center;
   background: #f0f4ff;
   padding: 20px;
+  margin: 0;
 }
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
 #canvas-container {
-  margin: 20px auto;
-  width: 1080px;
-  max-width: 95vw;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
 }
+
 canvas {
   border: 2px solid #ccc;
-  max-width: 100%;
+  width: 100%;
   height: auto;
 }
-button {
+
+#controls {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+input[type="file"] {
+  padding: 8px;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  background-color: #1f7aff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #145bd1;
 }
