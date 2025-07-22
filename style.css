@@ -4,6 +4,7 @@ body {
   background: #f0f4ff;
   padding: 20px;
   margin: 0;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -13,7 +14,7 @@ h1 {
 
 #canvas-container {
   width: 100%;
-  max-width: 540px;
+  max-width: 480px;
   margin: 0 auto;
   position: relative;
   aspect-ratio: 1 / 1;
@@ -37,6 +38,7 @@ canvas {
 input[type="file"] {
   padding: 8px;
   font-size: 14px;
+  max-width: 100%;
 }
 
 button {
