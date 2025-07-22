@@ -2,7 +2,7 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-// UI kecil, internal tetap HD
+// Set tampilan kecil, tapi tetap HD secara internal
 canvas.setDimensions({ width: 540, height: 540 }, { cssOnly: true });
 
 let frameObject;
@@ -15,8 +15,8 @@ function addFrameOverlay() {
       top: 0,
       selectable: false,
       evented: false,
-      scaleX: canvas.getWidth() / img.width,
-      scaleY: canvas.getHeight() / img.height
+      scaleX: canvas.width / img.width,
+      scaleY: canvas.height / img.height
     });
     frameObject = img;
     canvas.add(img);
@@ -31,8 +31,8 @@ document.getElementById('upload').addEventListener('change', function (e) {
   reader.onload = function (f) {
     fabric.Image.fromURL(f.target.result, function (img) {
       img.set({
-        left: canvas.getWidth() / 2,
-        top: canvas.getHeight() / 2,
+        left: canvas.width / 2,
+        top: canvas.height / 2,
         originX: 'center',
         originY: 'center',
         hasRotatingPoint: false,
@@ -40,7 +40,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(canvas.getWidth() * 0.75);
+      img.scaleToWidth(canvas.width * 0.75);
       canvas.add(img);
       canvas.setActiveObject(img);
       if (frameObject) canvas.bringToFront(frameObject);
