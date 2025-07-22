@@ -38,9 +38,15 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(800);
+
+      // ✅ Scale supaya tidak meledak di UI kecil
+      const maxDisplaySize = 500; // batas visual biar masuk frame
+      const scaleRatio = maxDisplaySize / Math.max(img.width, img.height);
+      img.scale(scaleRatio);
+
       canvas.add(img);
       canvas.setActiveObject(img);
+
       if (frameObject) canvas.bringToFront(frameObject);
     });
   };
