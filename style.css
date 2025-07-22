@@ -6,20 +6,24 @@ body {
 }
 
 #canvas-container {
-  margin: 20px auto;
-  max-width: 95vw;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 360px;
 }
 
 canvas {
-  border: 2px solid #ccc;
-  width: 50%;
-  max-width: 400px;
+  width: 100%;
   height: auto;
+  border: 2px solid #ccc;
+  display: block;
+  margin: 0 auto;
 }
 
-button {
+button,
+input[type="file"] {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  display: inline-block;
 }
