@@ -2,10 +2,10 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-let frameObject; // buat nyimpen frame twibbon
+let frameObject;
 let background;
 
-// Tambah layer background putih
+// Tambah background putih responsif
 function addWhiteBackground() {
   if (background) canvas.remove(background);
   background = new fabric.Rect({
@@ -21,21 +21,33 @@ function addWhiteBackground() {
   canvas.sendToBack(background);
 }
 
-// Tambah twibbon frame (dipanggil ulang tiap resize)
+// Tambah twibbon frame
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
+  console.log("🔍 Loading frame:", frameURL);
+
   fabric.Image.fromURL(frameURL, function (img) {
+    if (!img) {
+      console.error("❌ Gagal load twibbon frame!");
+      return;
+    }
+
+    console.log("✅ Frame berhasil dimuat!");
+
     img.set({
       left: 0,
       top: 0,
       selectable: false,
       evented: false
     });
+
     img.scaleToWidth(canvas.getWidth());
+    img.scaleToHeight(canvas.getHeight());
+
     frameObject = img;
     canvas.add(img);
     canvas.bringToFront(img);
-  });
+  }, { crossOrigin: 'anonymous' });
 }
 
 // Upload gambar pengguna
@@ -57,7 +69,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
       canvas.add(img);
       canvas.setActiveObject(img);
       if (frameObject) canvas.bringToFront(frameObject);
-    });
+    }, { crossOrigin: 'anonymous' });
   };
   reader.readAsDataURL(e.target.files[0]);
 });
@@ -79,15 +91,17 @@ document.getElementById('download').addEventListener('click', function () {
   }, 100);
 });
 
-// Resize canvas agar responsif + panggil ulang background & frame
+// Resize canvas agar responsif dan panggil ulang background + frame
 function resizeCanvas() {
   const containerWidth = document.getElementById('canvas').parentElement.clientWidth;
   const scale = containerWidth / 1080;
 
   canvas.setWidth(1080 * scale);
   canvas.setHeight(1080 * scale);
+
   addWhiteBackground();
   addFrameOverlay();
+
   canvas.renderAll();
 }
 
