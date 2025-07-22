@@ -2,10 +2,10 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-// Buat canvas tampil kecil di UI tapi tetap 1080x1080 internal
+// UI kecil, internal tetap HD
 canvas.setDimensions({ width: 540, height: 540 }, { cssOnly: true });
 
-let frameObject; // nyimpen frame twibbon
+let frameObject;
 
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
@@ -26,7 +26,6 @@ function addFrameOverlay() {
 
 addFrameOverlay();
 
-// Upload gambar
 document.getElementById('upload').addEventListener('change', function (e) {
   const reader = new FileReader();
   reader.onload = function (f) {
@@ -41,7 +40,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(canvas.getWidth() * 0.75); // auto scale sesuai canvas
+      img.scaleToWidth(canvas.getWidth() * 0.75);
       canvas.add(img);
       canvas.setActiveObject(img);
       if (frameObject) canvas.bringToFront(frameObject);
@@ -50,7 +49,6 @@ document.getElementById('upload').addEventListener('change', function (e) {
   reader.readAsDataURL(e.target.files[0]);
 });
 
-// Download hasil twibbon
 document.getElementById('download').addEventListener('click', function () {
   setTimeout(() => {
     const dataURL = canvas.toDataURL({
