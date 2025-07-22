@@ -4,6 +4,19 @@ const canvas = new fabric.Canvas('canvas', {
 
 let frameObject; // buat nyimpen frame twibbon
 
+// Tambah layer background putih
+const background = new fabric.Rect({
+  left: 0,
+  top: 0,
+  fill: 'white',
+  width: canvas.getWidth(),
+  height: canvas.getHeight(),
+  selectable: false,
+  evented: false
+});
+canvas.add(background);
+canvas.sendToBack(background);
+
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
   fabric.Image.fromURL(frameURL, function (img) {
