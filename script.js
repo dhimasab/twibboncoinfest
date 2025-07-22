@@ -2,8 +2,8 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-// Buat canvas tampil kecil di UI
-canvas.setDimensions({ width: 540, height: 540 });
+// Buat canvas tampil kecil di UI tapi tetap 1080x1080 internal
+canvas.setDimensions({ width: 540, height: 540 }, { cssOnly: true });
 
 let frameObject; // nyimpen frame twibbon
 
@@ -41,7 +41,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(canvas.getWidth() * 0.75); // auto scale sesuai ukuran canvas
+      img.scaleToWidth(canvas.getWidth() * 0.75); // auto scale sesuai canvas
       canvas.add(img);
       canvas.setActiveObject(img);
       if (frameObject) canvas.bringToFront(frameObject);
