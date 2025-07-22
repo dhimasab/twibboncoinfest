@@ -18,6 +18,7 @@ function addWhiteBackground() {
   });
   canvas.add(background);
   canvas.sendToBack(background);
+  canvas.renderAll(); // Pastikan background langsung muncul
 }
 
 // Pasang twibbon frame sebagai background image canvas
@@ -36,7 +37,9 @@ function addFrameOverlay() {
     img.scaleToWidth(canvas.getWidth());
     img.scaleToHeight(canvas.getHeight());
 
-    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+    canvas.setBackgroundImage(img, () => {
+      canvas.renderAll(); // Render ulang setelah background image dimuat
+    }, {
       originX: 'left',
       originY: 'top'
     });
@@ -61,6 +64,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
       img.scaleToWidth(canvas.getWidth() * 0.75);
       canvas.add(img);
       canvas.setActiveObject(img);
+      canvas.renderAll(); // Pastikan gambar langsung muncul
     }, { crossOrigin: 'anonymous' });
   };
   reader.readAsDataURL(e.target.files[0]);
@@ -94,7 +98,7 @@ function resizeCanvas() {
   addWhiteBackground();
   addFrameOverlay();
 
-  canvas.renderAll();
+  canvas.renderAll(); // Render ulang setelah resize
 }
 
 // Trigger awal dan saat resize
