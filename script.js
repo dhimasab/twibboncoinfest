@@ -2,10 +2,9 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-let frameObject;
 let background;
 
-// Tambah background putih responsif
+// Tambah background putih (paling bawah)
 function addWhiteBackground() {
   if (background) canvas.remove(background);
   background = new fabric.Rect({
@@ -21,7 +20,7 @@ function addWhiteBackground() {
   canvas.sendToBack(background);
 }
 
-// Tambah twibbon frame
+// Pasang twibbon frame sebagai background image canvas
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
   console.log("🔍 Loading frame:", frameURL);
@@ -32,21 +31,15 @@ function addFrameOverlay() {
       return;
     }
 
-    console.log("✅ Frame berhasil dimuat!");
-
-    img.set({
-      left: 0,
-      top: 0,
-      selectable: false,
-      evented: false
-    });
+    console.log("✅ Frame berhasil dimuat sebagai background!");
 
     img.scaleToWidth(canvas.getWidth());
     img.scaleToHeight(canvas.getHeight());
 
-    frameObject = img;
-    canvas.add(img);
-    canvas.bringToFront(img);
+    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+      originX: 'left',
+      originY: 'top'
+    });
   }, { crossOrigin: 'anonymous' });
 }
 
@@ -68,7 +61,6 @@ document.getElementById('upload').addEventListener('change', function (e) {
       img.scaleToWidth(canvas.getWidth() * 0.75);
       canvas.add(img);
       canvas.setActiveObject(img);
-      if (frameObject) canvas.bringToFront(frameObject);
     }, { crossOrigin: 'anonymous' });
   };
   reader.readAsDataURL(e.target.files[0]);
@@ -91,7 +83,7 @@ document.getElementById('download').addEventListener('click', function () {
   }, 100);
 });
 
-// Resize canvas agar responsif dan panggil ulang background + frame
+// Resize canvas agar responsif
 function resizeCanvas() {
   const containerWidth = document.getElementById('canvas').parentElement.clientWidth;
   const scale = containerWidth / 1080;
@@ -105,5 +97,6 @@ function resizeCanvas() {
   canvas.renderAll();
 }
 
+// Trigger awal dan saat resize
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
