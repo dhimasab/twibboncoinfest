@@ -12,16 +12,18 @@ h1 {
 }
 
 #canvas-container {
-  margin: 0 auto;
   width: 100%;
-  max-width: 480px;
+  max-width: 540px;
+  margin: 0 auto;
   position: relative;
+  aspect-ratio: 1 / 1;
 }
 
 canvas {
-  border: 2px solid #ccc;
   width: 100%;
-  height: auto;
+  height: 100%;
+  display: block;
+  border: 2px solid #ccc;
 }
 
 #controls {
@@ -35,7 +37,6 @@ canvas {
 input[type="file"] {
   padding: 8px;
   font-size: 14px;
-  max-width: 100%;
 }
 
 button {
