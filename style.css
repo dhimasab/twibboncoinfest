@@ -3,21 +3,23 @@ body {
   text-align: center;
   background: #f0f4ff;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 #canvas-container {
-  margin: 20px auto;
   width: 100%;
-  max-width: 540px;   /* set container maksimal 540px */
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 canvas {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;    /* pastikan tetap square */
-  border: 2px solid #ccc;
   display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border: 2px solid #ccc;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 button,
