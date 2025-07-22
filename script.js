@@ -2,10 +2,10 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-// ⬇️ Tambahan untuk tampilan kecil (2x lebih kecil di UI)
+// Buat canvas tampil kecil di UI
 canvas.setDimensions({ width: 540, height: 540 });
 
-let frameObject; // buat nyimpen frame twibbon
+let frameObject; // nyimpen frame twibbon
 
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
@@ -14,10 +14,10 @@ function addFrameOverlay() {
       left: 0,
       top: 0,
       selectable: false,
-      evented: false
+      evented: false,
+      scaleX: canvas.getWidth() / img.width,
+      scaleY: canvas.getHeight() / img.height
     });
-    img.scaleToWidth(1080); // tetap render dalam kualitas tinggi
-    img.scaleToHeight(1080);
     frameObject = img;
     canvas.add(img);
     canvas.bringToFront(img);
@@ -32,8 +32,8 @@ document.getElementById('upload').addEventListener('change', function (e) {
   reader.onload = function (f) {
     fabric.Image.fromURL(f.target.result, function (img) {
       img.set({
-        left: 540,
-        top: 540,
+        left: canvas.getWidth() / 2,
+        top: canvas.getHeight() / 2,
         originX: 'center',
         originY: 'center',
         hasRotatingPoint: false,
@@ -41,7 +41,7 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(800);
+      img.scaleToWidth(canvas.getWidth() * 0.75); // auto scale sesuai ukuran canvas
       canvas.add(img);
       canvas.setActiveObject(img);
       if (frameObject) canvas.bringToFront(frameObject);
