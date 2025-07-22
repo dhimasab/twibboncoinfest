@@ -12,20 +12,25 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* Kotak responsive 1:1 */
 #canvas-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
   margin: 0 auto;
-  padding: 10px;
-  max-width: 100%;
+  padding-top: 100%; /* 1:1 aspect ratio trick */
+  border: 2px solid #ccc;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
+/* Canvas fill parent */
 canvas {
-  width: 100%;
-  max-width: 480px;  /* batas ukuran visual */
-  height: auto;
-  border: 2px solid #ccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
   display: block;
 }
 
@@ -58,9 +63,14 @@ button:hover {
   background-color: #145bd1;
 }
 
-/* ✅ Responsive fix tambahan */
+/* Optional: tweak buat layar lebih kecil */
 @media (max-width: 480px) {
+  #canvas-container {
+    padding-top: 100%;
+  }
+
   canvas {
-    max-width: 90vw;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
