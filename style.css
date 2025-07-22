@@ -1,20 +1,22 @@
-
 body {
   font-family: sans-serif;
   text-align: center;
   background: #f0f4ff;
   padding: 20px;
 }
+
 #canvas-container {
   margin: 20px auto;
-  width: 1080px;
   max-width: 95vw;
 }
+
 canvas {
   border: 2px solid #ccc;
-  max-width: 100%;
+  width: 100%;
+  max-width: 500px;
   height: auto;
 }
+
 button {
   margin-top: 20px;
   padding: 10px 20px;
