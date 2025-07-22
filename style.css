@@ -14,9 +14,9 @@ body {
 
 canvas {
   display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+  width: 100%;          /* visual tampil kecil */
   height: auto;
+  max-width: 540px;     /* batas ukuran canvas di layar */
   border: 2px solid #ccc;
   margin: 0 auto;
   box-sizing: border-box;
