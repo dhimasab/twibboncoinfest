@@ -1,23 +1,36 @@
-
 body {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
-  background: #f0f4ff;
-  padding: 20px;
+  padding: 1rem;
+  background-color: #f0f4ff;
+  color: #222;
 }
-#canvas-container {
-  margin: 20px auto;
-  width: 1080px;
-  max-width: 95vw;
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
+
+.canvas-container {
+  max-width: 100%;
+  margin: auto;
+}
+
 canvas {
-  border: 2px solid #ccc;
+  width: 100%;
   max-width: 100%;
   height: auto;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  background: #fff;
+  display: block;
+  margin: auto;
 }
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+
+.controls {
+  margin-top: 1rem;
+}
+
+input[type="file"] {
+  margin-right: 0.5rem;
 }
