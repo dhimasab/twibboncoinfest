@@ -9,8 +9,8 @@ const background = new fabric.Rect({
   left: 0,
   top: 0,
   fill: 'white',
-  width: canvas.getWidth(),
-  height: canvas.getHeight(),
+  width: 1080,
+  height: 1080,
   selectable: false,
   evented: false
 });
@@ -76,3 +76,16 @@ document.getElementById('download').addEventListener('click', function () {
     document.body.removeChild(link);
   }, 100);
 });
+
+// Resize canvas agar responsif di mobile
+function resizeCanvas() {
+  const containerWidth = document.getElementById('canvas').parentElement.clientWidth;
+  const scale = containerWidth / 1080;
+  canvas.setWidth(1080 * scale);
+  canvas.setHeight(1080 * scale);
+  canvas.setZoom(scale);
+  canvas.renderAll();
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
