@@ -2,58 +2,35 @@ const canvas = new fabric.Canvas('canvas', {
   preserveObjectStacking: true
 });
 
-let background;
+let frameObject; // buat nyimpen frame twibbon
 
-// Tambah background putih (paling bawah)
-function addWhiteBackground() {
-  if (background) canvas.remove(background);
-  background = new fabric.Rect({
-    left: 0,
-    top: 0,
-    fill: 'white',
-    width: canvas.getWidth(),
-    height: canvas.getHeight(),
-    selectable: false,
-    evented: false
-  });
-  canvas.add(background);
-  canvas.sendToBack(background);
-  canvas.renderAll(); // Pastikan background langsung muncul
-}
-
-// Pasang twibbon frame sebagai background image canvas
 function addFrameOverlay() {
   const frameURL = 'assets/frame.png';
-  console.log("🔍 Loading frame:", frameURL);
-
   fabric.Image.fromURL(frameURL, function (img) {
-    if (!img) {
-      console.error("❌ Gagal load twibbon frame!");
-      return;
-    }
-
-    console.log("✅ Frame berhasil dimuat sebagai background!");
-
-    img.scaleToWidth(canvas.getWidth());
-    img.scaleToHeight(canvas.getHeight());
-
-    canvas.setBackgroundImage(img, () => {
-      canvas.renderAll(); // Render ulang setelah background image dimuat
-    }, {
-      originX: 'left',
-      originY: 'top'
+    img.set({
+      left: 0,
+      top: 0,
+      selectable: false,
+      evented: false
     });
-  }, { crossOrigin: 'anonymous' });
+    img.scaleToWidth(1080);
+    img.scaleToHeight(1080);
+    frameObject = img;
+    canvas.add(img);
+    canvas.bringToFront(img);
+  });
 }
 
-// Upload gambar pengguna
+addFrameOverlay();
+
+// Upload gambar
 document.getElementById('upload').addEventListener('change', function (e) {
   const reader = new FileReader();
   reader.onload = function (f) {
     fabric.Image.fromURL(f.target.result, function (img) {
       img.set({
-        left: canvas.getWidth() / 2,
-        top: canvas.getHeight() / 2,
+        left: 540,
+        top: 540,
         originX: 'center',
         originY: 'center',
         hasRotatingPoint: false,
@@ -61,11 +38,11 @@ document.getElementById('upload').addEventListener('change', function (e) {
         lockScalingFlip: true,
         selectable: true
       });
-      img.scaleToWidth(canvas.getWidth() * 0.75);
+      img.scaleToWidth(800);
       canvas.add(img);
       canvas.setActiveObject(img);
-      canvas.renderAll(); // Pastikan gambar langsung muncul
-    }, { crossOrigin: 'anonymous' });
+      if (frameObject) canvas.bringToFront(frameObject);
+    });
   };
   reader.readAsDataURL(e.target.files[0]);
 });
@@ -86,21 +63,3 @@ document.getElementById('download').addEventListener('click', function () {
     document.body.removeChild(link);
   }, 100);
 });
-
-// Resize canvas agar responsif
-function resizeCanvas() {
-  const containerWidth = document.getElementById('canvas').parentElement.clientWidth;
-  const scale = containerWidth / 1080;
-
-  canvas.setWidth(1080 * scale);
-  canvas.setHeight(1080 * scale);
-
-  addWhiteBackground();
-  addFrameOverlay();
-
-  canvas.renderAll(); // Render ulang setelah resize
-}
-
-// Trigger awal dan saat resize
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
