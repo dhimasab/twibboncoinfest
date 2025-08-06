@@ -5,7 +5,7 @@ const canvas = new fabric.Canvas('canvas', {
 let frameObject; // buat nyimpen frame twibbon
 
 function addFrameOverlay() {
-  const frameURL = 'assets/frame.png';
+  const frameURL = './assets/frame.png';
   fabric.Image.fromURL(frameURL, function (img) {
     img.set({
       left: 0,
