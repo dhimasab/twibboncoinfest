@@ -1,0 +1,41 @@
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #f0f4ff;
+  padding: 20px;
+}
+#canvas-container {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1080px;
+}
+canvas {
+  border: 2px solid #ccc;
+  max-width: 100%;
+  height: auto;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+button, #upload, #quality {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  button, #upload, #quality {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+  }
+}
