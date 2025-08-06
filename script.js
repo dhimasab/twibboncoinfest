@@ -5,7 +5,7 @@ const canvas = new fabric.Canvas('canvas', {
 let frameObject; // buat nyimpen frame twibbon
 
 function addFrameOverlay() {
-  const frameURL = './assets/frame.png';
+  const frameURL = 'assets/frame.png';
   fabric.Image.fromURL(frameURL, function (img) {
     img.set({
       left: 0,
@@ -13,15 +13,17 @@ function addFrameOverlay() {
       selectable: false,
       evented: false
     });
+    // scale immediately to canvas size
     img.scaleToWidth(canvas.getWidth());
     img.scaleToHeight(canvas.getHeight());
     frameObject = img;
     canvas.add(img);
     canvas.bringToFront(img);
+    canvas.renderAll();
   });
 }
 
-addFrameOverlay();
+
 
 // Responsive canvas sizing
 function resizeCanvas() {
@@ -37,7 +39,10 @@ function resizeCanvas() {
   canvas.renderAll();
 }
 window.addEventListener('resize', resizeCanvas);
+
+// Initial setup
 resizeCanvas();
+addFrameOverlay();
 
 // Upload gambar
 document.getElementById('upload').addEventListener('change', function (e) {
@@ -77,7 +82,7 @@ document.getElementById('download').addEventListener('click', function () {
 
     const link = document.createElement('a');
     link.href = dataURL;
-    link.download = Coinfest_Twibbon_${qualityVal}.png;
+    link.download = `Coinfest_Twibbon_${qualityVal}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
