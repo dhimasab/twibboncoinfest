@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +11,15 @@
   <div id="canvas-container">
     <canvas id="canvas" width="1080" height="1080"></canvas>
   </div>
-  <input type="file" id="upload" accept="image/*"/>
-  <button id="download">Download Twibbon</button>
+  <div id="controls">
+    <input type="file" id="upload" accept="image/*"/>
+    <select id="quality">
+      <option value="1080">Super High (1080×1080)</option>
+      <option value="960">High (960×960)</option>
+      <option value="720">Medium (720×720)</option>
+    </select>
+    <button id="download">Download Twibbon</button>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"></script>
   <script src="script.js"></script>
